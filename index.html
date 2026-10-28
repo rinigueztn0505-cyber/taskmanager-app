@@ -1,89 +1,319 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Configuración básica del documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskManager - Gestión de Tareas</title>
-    <!-- Hoja de estilos externa -->
+
+    <!-- Nombre que aparece en la pestaña del navegador -->
+    <title>TaskManager | Mi espacio de trabajo</title>
+
+    <!-- Archivo externo que controla el diseño visual -->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    <!-- Encabezado principal -->
-    <header class="app-header">
-        <div class="container">
-            <h1>📋 TaskManager</h1>
-            <p>Aplicación web de gestión de tareas diarias</p>
-        </div>
-    </header>
+    <!-- ESTRUCTURA GENERAL: navegación lateral y contenido -->
+    <div class="app-layout">
 
-    <!-- Contenido principal -->
-    <main class="container">
+        <!-- NAVEGACIÓN LATERAL -->
+        <aside class="sidebar">
 
-        <!-- Sección 1: Formulario para agregar/editar tareas -->
-        <section class="card-section">
-            <h2>Agregar Nueva Tarea</h2>
-            <form id="task-form" class="task-form">
-                <div class="form-group">
-                    <label for="task-title">Título de la tarea (*):</label>
-                    <input type="text" id="task-title" placeholder="Ej. Estudiar JavaScript" required>
+            <!-- Identidad visual de la aplicación -->
+            <div class="brand">
+                <span class="brand-icon">✓</span>
+
+                <div>
+                    <h1>Task<span>Manager</span></h1>
+                    <p>Organiza a tu manera</p>
+                </div>
+            </div>
+
+            <!-- Opciones de navegación de la interfaz -->
+            <nav class="main-navigation" aria-label="Navegación principal">
+                <a href="#inicio" class="nav-link active">
+                    <span aria-hidden="true">⌂</span>
+                    Inicio
+                </a>
+
+                <a href="#mis-tareas" class="nav-link">
+                    <span aria-hidden="true">▤</span>
+                    Mis tareas
+                </a>
+
+                <a href="#organizacion" class="nav-link">
+                    <span aria-hidden="true">◷</span>
+                    Organización
+                </a>
+            </nav>
+
+            <!-- Mensaje decorativo de la aplicación -->
+            <div class="sidebar-note">
+                <span aria-hidden="true">✦</span>
+                <p>Un paso a la vez.</p>
+                <small>La constancia convierte los planes en resultados.</small>
+            </div>
+
+            <!-- Información del proyecto académico -->
+            <div class="sidebar-footer">
+                <span>ACTIVIDAD INTEGRADORA 2</span>
+                <p>Gestión personal de tareas</p>
+            </div>
+
+        </aside>
+
+        <!-- ÁREA PRINCIPAL DE TRABAJO -->
+        <main class="workspace" id="inicio">
+
+            <!-- ENCABEZADO DE BIENVENIDA -->
+            <header class="welcome-header">
+                <div>
+                    <p class="eyebrow">TU ESPACIO DE TRABAJO</p>
+                    <h2>Planifica. Prioriza. Avanza.</h2>
+                    <p class="welcome-description">
+                        Administra tus actividades y mantén tus objetivos en marcha.
+                    </p>
                 </div>
 
-                <div class="form-group">
-                    <label for="task-desc">Descripción:</label>
-                    <textarea id="task-desc" rows="3" placeholder="Detalles o notas sobre la tarea..."></textarea>
+                <div class="date-indicator">
+                    <span aria-hidden="true">◷</span>
+                    <span>Organiza tu día</span>
+                </div>
+            </header>
+
+            <!-- PANEL DE ENFOQUE: resumen compacto de la actividad -->
+            <section class="focus-panel" aria-labelledby="focus-title">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">VISTA GENERAL</p>
+                        <h2 id="focus-title">Mi enfoque</h2>
+                    </div>
+
+                    <span class="section-symbol" aria-hidden="true">✦</span>
                 </div>
 
-                <div class="form-row">
+                <!-- Indicador visual de progreso actualizado por JavaScript -->
+                <div class="progress-summary">
+                    <div class="progress-text">
+                        <span>Avance de tus tareas</span>
+                        <strong id="progress-percentage">0%</strong>
+                    </div>
+
+                    <div
+                        class="progress-track"
+                        id="progress-track"
+                        role="progressbar"
+                        aria-label="Porcentaje de tareas completadas"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                    >
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+
+                    <p id="progress-message">
+                        Empieza con una tarea y construye tu progreso.
+                    </p>
+                </div>
+
+                <!-- Resumen compacto: los valores se actualizan desde app.js -->
+                <div class="quick-stats">
+
+                    <article class="stat-item">
+                        <span class="stat-icon stat-icon-blue" aria-hidden="true">▤</span>
+                        <div>
+                            <p>Tareas registradas</p>
+                            <strong id="total-tasks">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-item">
+                        <span class="stat-icon stat-icon-orange" aria-hidden="true">◷</span>
+                        <div>
+                            <p>Por resolver</p>
+                            <strong id="pending-tasks">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-item">
+                        <span class="stat-icon stat-icon-green" aria-hidden="true">✓</span>
+                        <div>
+                            <p>Objetivos alcanzados</p>
+                            <strong id="completed-tasks">0</strong>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- FORMULARIO PARA CREAR O MODIFICAR TAREAS -->
+            <section class="content-panel" aria-labelledby="form-title">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">PLANIFICACIÓN</p>
+                        <h2 id="form-title">Prepara tu siguiente paso</h2>
+                    </div>
+
+                    <span class="section-symbol" aria-hidden="true">＋</span>
+                </div>
+
+                <form id="task-form" class="task-form">
+
+                    <!-- Campo obligatorio: título de la tarea -->
                     <div class="form-group">
-                        <label for="task-priority">Prioridad:</label>
-                        <select id="task-priority">
-                            <option value="baja">Baja</option>
-                            <option value="media" selected>Media</option>
-                            <option value="alta">Alta</option>
+                        <label for="task-title">¿Qué necesitas hacer? *</label>
+                        <input
+                            type="text"
+                            id="task-title"
+                            placeholder="Ej. Terminar la práctica de JavaScript"
+                            required
+                        >
+                    </div>
+
+                    <!-- Campo opcional: detalles de la tarea -->
+                    <div class="form-group">
+                        <label for="task-desc">Detalles o notas</label>
+                        <textarea
+                            id="task-desc"
+                            rows="3"
+                            placeholder="Describe los pasos o información que necesitas recordar..."
+                        ></textarea>
+                    </div>
+
+                    <!-- Clasificación y fecha límite -->
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="task-priority">Nivel de prioridad</label>
+                            <select id="task-priority">
+                                <option value="baja">Baja</option>
+                                <option value="media" selected>Media</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-date">Fecha límite</label>
+                            <input type="date" id="task-date">
+                        </div>
+
+                    </div>
+
+                    <!-- Botón de envío procesado por app.js -->
+                    <button type="submit" class="btn btn-primary" id="btn-save">
+                        ＋ Guardar tarea
+                    </button>
+
+                </form>
+            </section>
+
+            <!-- ÁREA DE ORGANIZACIÓN, BÚSQUEDA Y FILTRADO -->
+            <section class="content-panel" id="organizacion">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">ENCUENTRA LO QUE BUSCAS</p>
+                        <h2>Organiza tus actividades</h2>
+                    </div>
+                </div>
+
+                <div class="task-toolbar">
+
+                    <!-- Búsqueda en tiempo real por título -->
+                    <div class="search-wrapper">
+                        <label for="search-input" class="visually-hidden">
+                            Buscar una tarea
+                        </label>
+
+                        <span aria-hidden="true">⌕</span>
+
+                        <input
+                            type="search"
+                            id="search-input"
+                            placeholder="Buscar por título..."
+                        >
+                    </div>
+
+                    <!-- Filtros que utiliza JavaScript -->
+                    <div class="filter-buttons" aria-label="Filtrar tareas">
+                        <button
+                            type="button"
+                            class="btn-filter active"
+                            data-filter="all"
+                            aria-pressed="true"
+                        >
+                            Todas
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-filter"
+                            data-filter="pending"
+                            aria-pressed="false"
+                        >
+                            Pendientes
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-filter"
+                            data-filter="completed"
+                            aria-pressed="false"
+                        >
+                            Completadas
+                        </button>
+                    </div>
+
+                    <!-- Selector de ordenamiento -->
+                    <div class="sort-wrapper">
+                        <label for="sort-tasks">Ordenar por</label>
+
+                        <select id="sort-tasks">
+                            <option value="newest">Más recientes</option>
+                            <option value="oldest">Más antiguas</option>
+                            <option value="priority">Prioridad</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="task-date">Fecha límite:</label>
-                        <input type="date" id="task-date">
+                </div>
+            </section>
+
+            <!-- LISTA DINÁMICA: app.js dibuja las tareas en este contenedor -->
+            <section class="content-panel task-list-panel" id="mis-tareas">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">TU PLAN DE ACCIÓN</p>
+                        <h2>Mis tareas</h2>
+                        <p class="panel-description">
+                            Revisa tus actividades, actualiza su estado y sigue avanzando.
+                        </p>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" id="btn-save">➕ Guardar Tarea</button>
-            </form>
-        </section>
-
-        <!-- Sección 2: Panel de Filtros y Búsqueda -->
-        <section class="card-section filters-section">
-            <div class="filter-controls">
-                <input type="text" id="search-input" placeholder="🔍 Buscar tarea por título...">
-                
-                <div class="filter-buttons">
-                    <button class="btn-filter active" data-filter="all">Todas</button>
-                    <button class="btn-filter" data-filter="pending">Pendientes</button>
-                    <button class="btn-filter" data-filter="completed">Completadas</button>
+                <div id="tasks-container" class="tasks-grid">
+                    <!-- Mensaje inicial sustituido por las tareas al cargar la aplicación -->
+                    <p class="empty-msg">Preparando tu lista de tareas...</p>
                 </div>
-            </div>
-        </section>
 
-        <!-- Sección 3: Lista interactiva de tareas -->
-        <section class="card-section">
-            <h2>Lista de Tareas</h2>
-            <div id="tasks-container" class="tasks-grid">
-                <!-- JavaScript renderizará aquí las tarjetas de tareas dinámicamente -->
-                <p class="empty-msg">Cargando tareas...</p>
-            </div>
-        </section>
+            </section>
 
-    </main>
+            <!-- PIE DE PÁGINA -->
+            <footer class="app-footer">
+                <p>TaskManager · 2026 · Actividad Integradora 2</p>
+                <p>Desarrollado con HTML, CSS y JavaScript.</p>
+            </footer>
 
-    <!-- Pie de página -->
-    <footer class="app-footer">
-        <p>TaskManager App &copy; 2026 - Actividad Integradora 2</p>
-    </footer>
+        </main>
 
-    <!-- Script de JavaScript al final para manipulación del DOM -->
+    </div>
+
+    <!-- Se carga al final para que los elementos HTML estén disponibles -->
     <script src="app.js"></script>
+
 </body>
 </html>

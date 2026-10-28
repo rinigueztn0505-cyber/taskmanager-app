@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskManager - Gestión de Tareas</title>
+    <!-- Hoja de estilos externa -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Encabezado principal -->
+    <header class="app-header">
+        <div class="container">
+            <h1>📋 TaskManager</h1>
+            <p>Aplicación web de gestión de tareas diarias</p>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="container">
+
+        <!-- Sección 1: Formulario para agregar/editar tareas -->
+        <section class="card-section">
+            <h2>Agregar Nueva Tarea</h2>
+            <form id="task-form" class="task-form">
+                <div class="form-group">
+                    <label for="task-title">Título de la tarea (*):</label>
+                    <input type="text" id="task-title" placeholder="Ej. Estudiar JavaScript" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-desc">Descripción:</label>
+                    <textarea id="task-desc" rows="3" placeholder="Detalles o notas sobre la tarea..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-priority">Prioridad:</label>
+                        <select id="task-priority">
+                            <option value="baja">Baja</option>
+                            <option value="media" selected>Media</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-date">Fecha límite:</label>
+                        <input type="date" id="task-date">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="btn-save">➕ Guardar Tarea</button>
+            </form>
+        </section>
+
+        <!-- Sección 2: Panel de Filtros y Búsqueda -->
+        <section class="card-section filters-section">
+            <div class="filter-controls">
+                <input type="text" id="search-input" placeholder="🔍 Buscar tarea por título...">
+                
+                <div class="filter-buttons">
+                    <button class="btn-filter active" data-filter="all">Todas</button>
+                    <button class="btn-filter" data-filter="pending">Pendientes</button>
+                    <button class="btn-filter" data-filter="completed">Completadas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Lista interactiva de tareas -->
+        <section class="card-section">
+            <h2>Lista de Tareas</h2>
+            <div id="tasks-container" class="tasks-grid">
+                <!-- JavaScript renderizará aquí las tarjetas de tareas dinámicamente -->
+                <p class="empty-msg">Cargando tareas...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="app-footer">
+        <p>TaskManager App &copy; 2026 - Actividad Integradora 2</p>
+    </footer>
+
+    <!-- Script de JavaScript al final para manipulación del DOM -->
+    <script src="app.js"></script>
+</body>
+</html>
